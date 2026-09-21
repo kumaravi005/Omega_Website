@@ -1,5 +1,6 @@
 import { useParams } from 'react-router'
 import { PagePlaceholder } from '@/components/common/PagePlaceholder'
+import { ROUTES } from '@/config/routes'
 import { getCourse } from '@/data'
 import NotFoundPage from '@/pages/not-found/NotFoundPage'
 
@@ -17,6 +18,11 @@ export default function CourseDetailPage() {
     <PagePlaceholder
       title={course.title}
       plannedContent="Course details: who it is for, syllabus coverage, batch structure, schedule and how to enrol."
+      breadcrumbs={[
+        { label: 'Home', to: ROUTES.home },
+        { label: 'Courses', to: ROUTES.courses },
+        { label: course.title },
+      ]}
     />
   )
 }

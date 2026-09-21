@@ -1,0 +1,63 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.mark {
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.markBg {
+  fill: var(--color-primary);
+}
+
+.markGlyph {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem; /* keeps descenders (the "g" in Omega) off the descriptor line */
+  line-height: 1.1;
+}
+
+.name {
+  font-size: var(--font-size-h4);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-heading);
+}
+
+.descriptor {
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Light-on-dark version */
+.inverse .markBg {
+  fill: var(--color-accent);
+}
+
+.inverse .markGlyph {
+  stroke: var(--color-on-accent);
+}
+
+.inverse .name {
+  color: var(--color-text-inverse);
+}
+
+.inverse .descriptor {
+  color: var(--color-text);
+}

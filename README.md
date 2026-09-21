@@ -113,15 +113,15 @@ src/
   pages/                 One folder per route (about/, courses/, faculty/ ...)
   sections/home/         Homepage sections, one component each
   components/
-    layout/              Header, Footer
-    ui/                  Generic primitives: Button, ButtonLink, Container, Section
-    common/              Shared building blocks: PageMeta, placeholders
+    layout/              Global Header and Footer
+    ui/                  Design-system components (see "UI components")
+    common/              Logo, PageMeta, page/section placeholders
   data/                  Static content (courses, faculty, results, news ...)
   types/                 TypeScript models for the content and UI
   hooks/                 Reusable React hooks
-  utils/                 Pure helper functions
+  utils/                 Pure helpers (class names, tel/WhatsApp links)
   assets/                Images and icons (see src/assets/README.md)
-  styles/                Design tokens and global styles
+  styles/                Design tokens, global CSS, layout and patterns
 ```
 
 ### Conventions
@@ -139,26 +139,85 @@ src/
   `config/routes.ts`, add one entry to `app/router.tsx`, and add it to
   `data/navigation.ts` if it should appear in the menus.
 - **Page titles:** render `<PageMeta title="…" />` in each page.
+- **Styling rules:** use semantic tokens (`var(--color-primary)`), never raw
+  palette steps or hex values; use `.container` / `.section` / `.grid` / `.stack`
+  / `.cluster` for layout; media queries only at 640 / 768 / 1024 / 1280px.
 
-### Design system foundation
+### Design system
 
-Defined in `src/styles/`. Use the tokens; do not hardcode values.
+The whole visual system lives in `src/styles/` and is driven by
+**`tokens.css`**. Nothing else may hardcode a colour, font size, spacing value,
+radius, shadow, width or transition timing.
 
-| File            | Provides                                                                         |
-| --------------- | -------------------------------------------------------------------------------- |
-| `tokens.css`    | Colours, type scale, spacing, radii, shadows, container widths, z-index          |
-| `base.css`      | Reset, body defaults, focus ring, skip link, `.visually-hidden`                  |
-| `typography.css`| Heading / paragraph styles, `.eyebrow`, `.lead`, `.text-muted`                   |
-| `layout.css`    | `.container`, `.section` (default / muted / dark)                                |
-| `buttons.css`   | `.btn` with `primary`, `accent`, `outline`, `ghost` variants and `sm/md/lg` sizes |
+| File             | Provides                                                                                     |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| `tokens.css`     | Palette + semantic colours, typography, spacing, radii, shadows, layout widths, motion       |
+| `base.css`       | Reset, body defaults, link style, focus ring, skip link, `.visually-hidden`                  |
+| `typography.css` | Display / H1–H4 / lead / small / label styles (`.text-display`, `.h1`…`.h4`, `.eyebrow`)     |
+| `layout.css`     | `.container`, `.section`, `.stack`, `.cluster`, `.grid`, `.split`, `.on-dark`                |
+| `buttons.css`    | `.btn` — `primary`, `accent`, `outline`, `ghost` × `sm`, `md`, `lg`; all states              |
+| `patterns.css`   | Section heading, CTA group, card, image frame, badge, breadcrumb                             |
 
-- **Breakpoints (mobile-first):** `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px.
-  Desktop navigation starts at `lg`.
-- **Container:** 1200px max width (800px narrow variant) with a fluid gutter.
-- **Radii:** 4 / 8 / 12 / 16px and full. Buttons use 8px, cards 12px.
-- **Colours:** *provisional* deep-blue primary and warm-amber accent. To be
-  replaced once the official logo and brand colours are confirmed.
-- **Fonts:** system font stack for now; a web font can be chosen later.
+**Brand colours are provisional.** The palette (deep academic blue, warm amber,
+teal) is a placeholder, not Omega's confirmed identity, and so is the "Ω"
+logo mark in `components/common/Logo.tsx` and `public/favicon.svg`. To rebrand,
+edit only the `PALETTE` block in `tokens.css` (and the `Logo` component); the
+semantic roles that components use (`--color-primary`, `--color-accent`,
+`--color-surface`, …) follow automatically.
+
+- **Two-layer colours:** `--palette-*` (raw scales, edit to rebrand) →
+  `--color-*` (roles: primary, primary-hover, secondary, accent, bg, surface,
+  text, text-muted, border, success, warning, error). Components use roles only.
+- **Accessibility:** all text/background pairs meet WCAG AA (4.5:1) and the
+  focus ring meets 3:1. Amber is never used for text on white; use
+  `--color-accent-text`. Re-check contrast after changing the palette.
+- **Typography:** system font stack (no font download). Each role has a fluid
+  `clamp()` size token: `--font-size-display`, `-h1`…`-h4`, `-lead`, `-body`,
+  `-small`, `-label`, `-nav`, `-button`.
+- **Layout widths:** container 1200px (`narrow` 800px, `wide` 1400px), fluid
+  side gutter (16–32px), fluid section spacing (`--section-y`).
+- **Breakpoints (mobile-first):** `sm` 640, `md` 768, `lg` 1024, `xl` 1280.
+  CSS variables cannot be used inside `@media`, so these four literal values are
+  the only ones permitted in media queries. Prefer fluid tokens and `auto-fit`
+  grids; add a media query only when the layout truly changes.
+- **Radii:** 4 / 8 / 12 / 16px and full. Buttons 8px, cards 12px.
+- **Motion:** `--duration-fast` / `--duration-base`; automatically disabled by
+  `prefers-reduced-motion`.
+- **Dark bands:** add `.on-dark` (or `<Section tone="dark">`) and text, links,
+  borders and focus ring re-colour themselves.
+
+### UI components
+
+`src/components/ui/`:
+
+| Component        | Purpose                                                                       |
+| ---------------- | ----------------------------------------------------------------------------- |
+| `Button`         | Action button (variant, size, disabled)                                       |
+| `ButtonLink`     | Router link styled as a button                                                |
+| `Container`      | Centred page width (`default`, `narrow`, `wide`)                              |
+| `Section`        | Full-width band with spacing and tone (`default`, `muted`, `dark`)            |
+| `SectionHeading` | Eyebrow + title + description; sets the heading level                         |
+| `CtaGroup`       | Row of call-to-action buttons (stacks full-width on phones)                   |
+| `Card`           | Bordered surface; `interactive` and `flush` (edge-to-edge media) options      |
+| `ImageFrame`     | Fixed-ratio image with lazy loading, mandatory alt text and a placeholder     |
+| `Badge`          | Small status / category pill                                                  |
+| `Breadcrumb`     | Ancestor trail for nested pages                                               |
+
+`src/components/layout/` holds the global `Header` and `Footer`;
+`src/components/common/` holds `Logo`, `PageMeta` and the placeholders.
+
+### Header and footer
+
+- **Header:** sticky; logo, primary navigation, and an "Admission" call to
+  action. Below 1024px the navigation becomes a menu that closes on link click,
+  route change (including browser back) and <kbd>Esc</kbd>. The active page is
+  marked with `aria-current`, plus a visible marker.
+- **Footer:** institute info, "Explore" links, course links (from
+  `data/courses.ts`), and a contact column (branches, phones, WhatsApp, email,
+  hours) plus social links, all read from `src/data`. Until the institute
+  supplies real details the contact column shows a "coming soon" note and the
+  social row is hidden.
+- Both are rendered once by `layouts/RootLayout.tsx`; pages never include them.
 
 ### Assets
 
@@ -175,28 +234,29 @@ faculty information may be reused from it. Omega keeps its own identity.
 
 ## Development roadmap
 
-| Set | Scope                                                                                  | Status      |
-| --- | -------------------------------------------------------------------------------------- | ----------- |
-| 1   | Foundation: architecture, routes, data model, asset structure, design tokens, README   | **Done**    |
-| 2   | Homepage build: hero, intro, courses, why Omega, results, CTA (with real content)      | Not started |
-| 3   | Remaining homepage sections: faculty, testimonials, scholarship, classroom, news       | Not started |
-| 4   | Inner pages: about, courses, course details, results, faculty                          | Not started |
-| 5   | Inner pages: scholarship, admission enquiry, news, contact                             | Not started |
-| 6   | Polish and launch: SEO, accessibility audit, performance, deployment                   | Not started |
+| Set | Scope                                                                                       | Status      |
+| --- | ------------------------------------------------------------------------------------------- | ----------- |
+| 1   | Foundation: architecture, routes, data model, asset structure, tokens, README               | **Done**    |
+| 2   | Brand identity and global design system: tokens, layout, shared UI, header, footer          | **Done**    |
+| 3   | Homepage build: hero, intro, courses, why Omega, results, CTA (with real content)           | Not started |
+| 4   | Remaining homepage sections: faculty, testimonials, scholarship, classroom, news            | Not started |
+| 5   | Inner pages: about, courses, course details, results, faculty                               | Not started |
+| 6   | Inner pages: scholarship, admission enquiry, news, contact                                  | Not started |
+| 7   | Polish and launch: SEO, accessibility audit, performance, deployment                        | Not started |
 
-The exact grouping of sets 2–6 is a proposal and can change.
+The grouping of sets 3–7 is a proposal and can change.
 
 ## Current project status
 
-**Set 1 (foundation) is complete.** The app builds and runs, every route
-resolves, and the header, footer and mobile menu work. The homepage is a
-stack of labelled section shells and the inner pages are "coming soon"
-placeholders. All content data files are empty by design, awaiting real
-institute content.
+**Sets 1 and 2 are complete.** The app builds and runs, every route resolves,
+and the global shell (header, footer, mobile menu, design system and shared UI
+components) is production-quality. The homepage is still a stack of labelled
+section shells and the inner pages are "coming soon" placeholders. All content
+data files are empty by design, awaiting real institute content.
 
-Open decisions before the SEO/launch stage:
+Open decisions:
 
-- Final logo and brand colours.
+- Final logo and brand colours (currently provisional).
 - Whether static hosting of a client-rendered site is acceptable for search
   visibility, or pages should be pre-rendered.
 - How admission enquiries should be received (this site has no backend).

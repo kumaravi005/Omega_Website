@@ -1,6 +1,7 @@
-/* Global stylesheet entry. Order matters: tokens first. */
+/* Global stylesheet entry. Order matters: tokens first, patterns last. */
 @import './tokens.css';
 @import './base.css';
 @import './typography.css';
 @import './layout.css';
 @import './buttons.css';
+@import './patterns.css';

@@ -1,7 +1,25 @@
 /*
- * Layout primitives. Prefer the <Container> and <Section> components; these
- * classes are what they render.
+ * Layout primitives. Combine these instead of writing one-off layout CSS.
+ *
+ *   .container   centred page width with side gutters (+ --narrow / --wide)
+ *   .section     full-width band with fluid vertical spacing (+ tones)
+ *   .stack       vertical flow with consistent gap
+ *   .cluster     wrapping row (buttons, tags, meta)
+ *   .grid        responsive card grid (auto-fit) or fixed --2 / --3 / --4
+ *   .split       text + media, side by side from `lg`
+ *   .on-dark     re-points text/link/focus tokens for dark backgrounds
+ *
+ * Breakpoints: sm 640 / md 768 / lg 1024 / xl 1280 (see tokens.css).
  */
+
+/* ---------- Page shell ---------- */
+
+/* Grows to fill the viewport so the footer sits at the bottom on short pages. */
+.page-main {
+  flex: 1 0 auto;
+}
+
+/* ---------- Container ---------- */
 
 .container {
   width: 100%;
@@ -14,8 +32,18 @@
   max-width: var(--container-narrow);
 }
 
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+/* ---------- Section ---------- */
+
 .section {
   padding-block: var(--section-y);
+}
+
+.section--tight {
+  padding-block: var(--section-y-tight);
 }
 
 .section--muted {
@@ -23,19 +51,100 @@
 }
 
 .section--dark {
-  background: var(--color-primary-800);
-  color: var(--color-text-inverse);
+  background: var(--color-bg-dark);
 }
 
-.section--dark h1,
-.section--dark h2,
-.section--dark h3,
-.section--dark h4 {
-  color: inherit;
+/* ---------- Dark backgrounds ---------- */
+
+.on-dark {
+  --color-text: var(--color-on-dark);
+  --color-text-muted: var(--color-on-dark-muted);
+  --color-heading: var(--color-text-inverse);
+  --color-link: var(--color-on-dark);
+  --color-link-hover: var(--color-text-inverse);
+  --color-border: var(--color-on-dark-border);
+  --color-accent-text: var(--color-on-dark-accent);
+  --color-focus: var(--color-on-dark-accent);
+
+  color: var(--color-text);
 }
 
-/* Header of a section: eyebrow + heading + lead, kept to a readable width. */
-.section__header {
-  max-width: var(--container-narrow);
-  margin-bottom: var(--space-10);
+/* ---------- Stack / cluster ---------- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--space-4));
+}
+
+.stack > * {
+  margin-block: 0;
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-3));
+}
+
+/* ---------- Grid ---------- */
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-6));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--grid-min, 16rem)), 1fr)
+  );
+}
+
+.grid--2,
+.grid--3,
+.grid--4 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Grid items must be allowed to shrink, or long words cause overflow. */
+.grid > *,
+.split > * {
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .grid--2,
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Split (text + media) ---------- */
+
+.split {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
 }

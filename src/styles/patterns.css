@@ -1,0 +1,192 @@
+/*
+ * Shared visual patterns. Each has a matching component in src/components/ui.
+ *
+ *   .section-heading   eyebrow + heading + description
+ *   .cta-group         row of call-to-action buttons
+ *   .card              bordered surface (+ --interactive, --flush)
+ *   .media             fixed-ratio image container with placeholder
+ *   .badge             small status / category pill
+ *   .breadcrumb        trail of ancestor pages
+ */
+
+/* ---------- Section heading ---------- */
+
+.section-heading {
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-8);
+}
+
+.section-heading > :last-child {
+  margin-bottom: 0;
+}
+
+.section-heading--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading__description {
+  margin-top: var(--space-3);
+}
+
+/* ---------- CTA group ---------- */
+
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.cta-group--center {
+  justify-content: center;
+}
+
+/* Small screens: stacked, full-width buttons are easier to tap. */
+@media (max-width: 639px) {
+  .cta-group > .btn {
+    width: 100%;
+  }
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+  color: var(--color-text);
+  transition: var(--transition-colors);
+}
+
+/* Media goes edge-to-edge; give inner text its own padding. */
+.card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* For cards that contain a link (whole card reacts to hover / keyboard focus). */
+.card--interactive:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.card--interactive:focus-within {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ---------- Media (image container) ---------- */
+
+.media {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  aspect-ratio: var(--media-ratio, 16 / 9);
+}
+
+.media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shown when no image has been supplied yet. */
+.media__placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, var(--color-primary-tint), var(--color-bg-muted));
+}
+
+/* ---------- Badge ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  border: var(--border-width) solid var(--color-border);
+  color: var(--color-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--weight-semibold);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.badge--primary {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary-border);
+  color: var(--color-primary);
+}
+
+.badge--accent {
+  background: var(--color-accent-tint);
+  border-color: var(--color-accent-border);
+  color: var(--color-accent-text);
+}
+
+.badge--success {
+  background: var(--color-success-tint);
+  border-color: currentColor;
+  color: var(--color-success);
+}
+
+.badge--warning {
+  background: var(--color-warning-tint);
+  border-color: currentColor;
+  color: var(--color-warning);
+}
+
+.badge--error {
+  background: var(--color-error-tint);
+  border-color: currentColor;
+  color: var(--color-error);
+}
+
+/* ---------- Breadcrumb ---------- */
+
+.breadcrumb {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-small);
+}
+
+.breadcrumb > ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  list-style: none;
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* Separator after each item but the last, so a wrapped trail never starts a line with "/".
+   Empty alt text ('/ ""') keeps it out of the accessibility tree. */
+.breadcrumb li:not(:last-child)::after {
+  content: '/' / '';
+  color: var(--color-text-muted);
+}
+
+.breadcrumb a {
+  color: var(--color-text-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-link-hover);
+}
+
+.breadcrumb [aria-current='page'] {
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}

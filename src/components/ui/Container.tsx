@@ -1,17 +1,18 @@
 import type { ReactNode } from 'react'
+import type { ContainerSize } from '@/types/ui'
 import { cn } from '@/utils/cn'
 
 interface ContainerProps {
-  /** Reading / form width (800px) instead of the default page width (1200px). */
-  narrow?: boolean
+  /** default 1200px, narrow 800px (forms / reading), wide 1400px (full-bleed bands). */
+  size?: ContainerSize
   className?: string
   children: ReactNode
 }
 
 /** Centres content and applies the standard max-width and side gutters. */
-export function Container({ narrow, className, children }: ContainerProps) {
+export function Container({ size = 'default', className, children }: ContainerProps) {
   return (
-    <div className={cn('container', narrow && 'container--narrow', className)}>
+    <div className={cn('container', size !== 'default' && `container--${size}`, className)}>
       {children}
     </div>
   )

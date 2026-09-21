@@ -1,4 +1,5 @@
 import { Section } from '@/components/ui/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 
 interface SectionPlaceholderProps {
   id: string
@@ -12,19 +13,10 @@ interface SectionPlaceholderProps {
  * Temporary body for homepage sections that are planned but not built yet.
  * Replace the usage inside a section component when it is implemented.
  */
-export function SectionPlaceholder({
-  id,
-  title,
-  plannedContent,
-  tone,
-}: SectionPlaceholderProps) {
+export function SectionPlaceholder({ id, title, plannedContent, tone }: SectionPlaceholderProps) {
   return (
     <Section id={id} tone={tone}>
-      <div className="section__header">
-        <p className="eyebrow">Planned section</p>
-        <h2>{title}</h2>
-        <p className="lead">{plannedContent}</p>
-      </div>
+      <SectionHeading eyebrow="Planned section" title={title} description={plannedContent} />
     </Section>
   )
 }

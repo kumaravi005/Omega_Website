@@ -2,7 +2,10 @@ import { Outlet, ScrollRestoration } from 'react-router'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
 
-/** Shell shared by every page: skip link, header, page content, footer. */
+/**
+ * Shell shared by every page: skip link, Header, page content, Footer.
+ * Pages render only their own content — never the header or footer.
+ */
 export function RootLayout() {
   return (
     <>
@@ -10,7 +13,8 @@ export function RootLayout() {
         Skip to main content
       </a>
       <Header />
-      <main id="main-content">
+      {/* tabIndex=-1 lets the skip link move focus here in every browser */}
+      <main id="main-content" tabIndex={-1} className="page-main">
         <Outlet />
       </main>
       <Footer />
