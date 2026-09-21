@@ -1,0 +1,41 @@
+/*
+ * Layout primitives. Prefer the <Container> and <Section> components; these
+ * classes are what they render.
+ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--muted {
+  background: var(--color-bg-muted);
+}
+
+.section--dark {
+  background: var(--color-primary-800);
+  color: var(--color-text-inverse);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3,
+.section--dark h4 {
+  color: inherit;
+}
+
+/* Header of a section: eyebrow + heading + lead, kept to a readable width. */
+.section__header {
+  max-width: var(--container-narrow);
+  margin-bottom: var(--space-10);
+}
