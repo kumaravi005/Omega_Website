@@ -57,8 +57,8 @@ Unknown URLs, including unknown course slugs, show a 404 page.
 In display order (`src/sections/home/`):
 
 1. Header / navigation *(built, in `components/layout`)*
-2. Hero
-3. Institute introduction
+2. Hero *(built)*
+3. Institute introduction *(built)*
 4. Courses
 5. Why choose Omega
 6. Faculty
@@ -70,7 +70,37 @@ In display order (`src/sections/home/`):
 12. Contact / admission call to action
 13. Footer *(built, in `components/layout`)*
 
-Sections 2–12 are labelled shells with no real content yet.
+The hero and introduction are built. Sections 4–12 are still labelled shells
+with no real content.
+
+### Homepage hero and introduction
+
+Copy for both lives in `src/data/home.ts` (`homeHero`, `homeIntro`) and is
+typed by `HomeHero` / `HomeIntro` in `src/types/content.ts`. It uses only
+confirmed facts: Omega is a purely offline institute, has no online classes, and
+has Foundation, JEE and NEET course pages. The course list in the headline is
+generated from `data/courses.ts`.
+
+- **Hero:** one H1, a supporting line, an "Enquire Now" button (to `/admission`,
+  a placeholder page until the enquiry journey exists) and "Explore Courses"
+  (to `/courses`). It sits on a dark band with a photo area beside it.
+- **Introduction:** heading, two short paragraphs, a link to `/about`, and three
+  supporting points as cards.
+- **Adding the real hero photo:** put the file in `src/assets/hero/`, then in
+  `src/data/home.ts`:
+
+  ```ts
+  import heroPhoto from '@/assets/hero/classroom.webp'
+  // in homeHero:
+  image: { src: heroPhoto, alt: 'Describe what the photo actually shows' },
+  ```
+
+  Until then the photo area shows a labelled placeholder (hidden from assistive
+  technology). The same works for `homeIntro.image`. Photos crop to fit with
+  `object-fit: cover`, so keep the subject away from the edges.
+- **Not yet claimed:** regular tests, doubt sessions, parent communication,
+  results, faculty details, batch sizes and facilities are deliberately absent
+  until the institute confirms them.
 
 ## Tech stack
 
@@ -238,21 +268,23 @@ faculty information may be reused from it. Omega keeps its own identity.
 | --- | ------------------------------------------------------------------------------------------- | ----------- |
 | 1   | Foundation: architecture, routes, data model, asset structure, tokens, README               | **Done**    |
 | 2   | Brand identity and global design system: tokens, layout, shared UI, header, footer          | **Done**    |
-| 3   | Homepage build: hero, intro, courses, why Omega, results, CTA (with real content)           | Not started |
-| 4   | Remaining homepage sections: faculty, testimonials, scholarship, classroom, news            | Not started |
+| 3   | Homepage hero and institute introduction                                                    | **Done**    |
+| 4   | Remaining homepage sections: courses, why Omega, faculty, results, testimonials, scholarship, classroom, news, closing CTA | Not started |
 | 5   | Inner pages: about, courses, course details, results, faculty                               | Not started |
 | 6   | Inner pages: scholarship, admission enquiry, news, contact                                  | Not started |
 | 7   | Polish and launch: SEO, accessibility audit, performance, deployment                        | Not started |
 
-The grouping of sets 3–7 is a proposal and can change.
+The grouping of sets 4–7 is a proposal and can change.
 
 ## Current project status
 
-**Sets 1 and 2 are complete.** The app builds and runs, every route resolves,
+**Sets 1, 2 and 3 are complete.** The app builds and runs, every route resolves,
 and the global shell (header, footer, mobile menu, design system and shared UI
-components) is production-quality. The homepage is still a stack of labelled
-section shells and the inner pages are "coming soon" placeholders. All content
-data files are empty by design, awaiting real institute content.
+components) is production-quality. The homepage hero and introduction are built;
+the remaining homepage sections are labelled shells and the inner pages are
+"coming soon" placeholders. The institute-fact data files (faculty, results,
+testimonials, news, branches, contact, scholarship) are empty by design, awaiting
+real content.
 
 Open decisions:
 

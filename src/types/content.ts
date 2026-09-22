@@ -5,7 +5,7 @@
  * missing values (and empty lists) without inventing placeholder facts.
  */
 
-import type { ImageRef, IsoDate } from './common'
+import type { ImageRef, IsoDate, NavItem } from './common'
 
 /** URL slugs of the courses that have their own page. Extend when a course page is added. */
 export type CourseSlug = 'foundation' | 'jee' | 'neet'
@@ -121,4 +121,31 @@ export interface ScholarshipInfo {
   slabs: { id: string; label: string; description: string }[]
   /** Next test date, if scheduled. */
   nextTestDate?: IsoDate
+}
+
+/** Homepage hero. Copy must contain only confirmed facts. */
+export interface HomeHero {
+  /** Small label above the headline. */
+  eyebrow: string
+  /** The page's single H1. */
+  headline: string
+  description: string
+  primaryCta: NavItem
+  secondaryCta?: NavItem
+  /** The real hero photograph. While absent, a labelled placeholder is shown. */
+  image?: ImageRef
+  /** Caption shown on the placeholder so it is never mistaken for a real photo. */
+  imagePlaceholder: string
+}
+
+/** Homepage "About Omega" introduction. Short preview only; the full story lives on /about. */
+export interface HomeIntro {
+  eyebrow: string
+  title: string
+  paragraphs: string[]
+  /** Short supporting points. Reuses the Feature shape (icon unused for now). */
+  points: Feature[]
+  cta?: NavItem
+  /** Optional photo shown above the points once a real one exists. */
+  image?: ImageRef
 }

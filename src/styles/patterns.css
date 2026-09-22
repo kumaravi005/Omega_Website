@@ -61,6 +61,11 @@
   transition: var(--transition-colors);
 }
 
+/* No dangling space under the last child (usually a paragraph). */
+.card > :last-child {
+  margin-bottom: 0;
+}
+
 /* Media goes edge-to-edge; give inner text its own padding. */
 .card--flush {
   padding: 0;
@@ -95,12 +100,48 @@
   object-fit: cover;
 }
 
-/* Shown when no image has been supplied yet. */
+/* Shown when no image has been supplied yet: a neutral panel with the brand mark. */
 .media__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(135deg, var(--color-primary-tint), var(--color-bg-muted));
+  padding: var(--space-6);
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-primary-tint), var(--color-bg-muted));
+  color: var(--color-primary);
+}
+
+.media__glyph {
+  width: 30%;
+  max-width: 8rem;
+  fill: none;
+  stroke: var(--color-primary-border);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.media__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--weight-medium);
+}
+
+/* On dark bands the placeholder becomes a translucent panel. */
+.on-dark .media {
+  background: var(--color-on-dark-hover);
+}
+
+.on-dark .media__placeholder {
+  background: var(--color-on-dark-hover);
+  color: var(--color-on-dark);
+}
+
+.on-dark .media__glyph {
+  stroke: var(--color-on-dark-accent);
 }
 
 /* ---------- Badge ---------- */

@@ -1,3 +1,4 @@
+import { omegaGlyphPath } from '@/config/brand'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/utils/cn'
 import styles from './Logo.module.css'
@@ -21,10 +22,7 @@ export function Logo({ inverse, className }: LogoProps) {
     <span className={cn(styles.logo, inverse && styles.inverse, className)}>
       <svg className={styles.mark} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
         <rect className={styles.markBg} width="32" height="32" rx="7" />
-        <path
-          className={styles.markGlyph}
-          d="M7 25H12.5C9 22.7 7.2 19.6 7.2 15.6A8.8 8.8 0 0 1 24.8 15.6C24.8 19.6 23 22.7 19.5 25H25"
-        />
+        <path className={styles.markGlyph} d={omegaGlyphPath} />
       </svg>
       <span className={styles.text}>
         <span className={styles.name}>{siteConfig.shortName}</span>{' '}

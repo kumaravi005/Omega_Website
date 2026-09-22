@@ -41,5 +41,10 @@ export const faculty: FacultyMember[] = [
 ]
 ```
 
+**Hero and intro photos:** save to `hero/` (or `classroom/`) and reference them from
+`homeHero.image` / `homeIntro.image` in `src/data/home.ts`. Until a real photo
+exists the site shows a labelled placeholder — never substitute stock or
+generated imagery and present it as Omega's own classrooms.
+
 Empty folders are kept in Git with a `.gitkeep`; delete it once a folder has a
 real file.

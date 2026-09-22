@@ -6,6 +6,8 @@ import { Container } from './Container'
 interface SectionProps {
   /** Anchor id, e.g. "courses" -> /#courses. */
   id?: string
+  /** id of the heading that names this section (gives it a region landmark). */
+  labelledBy?: string
   /** Background: default (white), muted (light grey) or dark (deep blue, light text). */
   tone?: SectionTone
   /** Less vertical padding, for compact bands such as banners or CTAs. */
@@ -18,6 +20,7 @@ interface SectionProps {
 /** A full-width page band with standard vertical spacing and a contained inner width. */
 export function Section({
   id,
+  labelledBy,
   tone = 'default',
   tight,
   width,
@@ -27,6 +30,7 @@ export function Section({
   return (
     <section
       id={id}
+      aria-labelledby={labelledBy}
       className={cn(
         'section',
         tight && 'section--tight',

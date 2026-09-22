@@ -7,6 +7,8 @@ interface SectionHeadingProps {
   description?: string
   /** Document-outline level. Pages use one h1; sections use h2. */
   as?: 'h1' | 'h2' | 'h3'
+  /** id for the heading element, so a <Section labelledBy> can point at it. */
+  headingId?: string
   align?: 'start' | 'center'
   className?: string
 }
@@ -17,13 +19,14 @@ export function SectionHeading({
   title,
   description,
   as: Heading = 'h2',
+  headingId,
   align = 'start',
   className,
 }: SectionHeadingProps) {
   return (
     <div className={cn('section-heading', align === 'center' && 'section-heading--center', className)}>
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <Heading>{title}</Heading>
+      <Heading id={headingId}>{title}</Heading>
       {description && <p className="lead section-heading__description">{description}</p>}
     </div>
   )

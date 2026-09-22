@@ -1,0 +1,34 @@
+/* Text first on small screens; text-heavy left column on laptops and up. */
+.layout {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.layout > * {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: var(--space-12);
+  }
+}
+
+/*
+ * The CTA group supplies the space below the text, so the heading block adds
+ * none. ".copy .heading" is deliberately more specific than the global
+ * ".section-heading" rule so the result never depends on stylesheet order.
+ */
+.copy .heading {
+  margin-bottom: 0;
+}
+
+/*
+ * Cap the photo height so a full-width visual on tablets does not dominate the
+ * hero; a real image crops to fit (object-fit: cover).
+ */
+.visual {
+  max-height: 22rem;
+}

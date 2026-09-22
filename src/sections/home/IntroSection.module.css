@@ -1,0 +1,8 @@
+.points {
+  list-style: none;
+}
+
+/* Tighter than the default heading margin; more specific than the global .h4 rule. */
+.points h3 {
+  margin-bottom: var(--space-2);
+}
