@@ -1,21 +1,22 @@
 import { ROUTES } from '@/config/routes'
 import type { HomeHero, HomeIntro } from '@/types/content'
 import { formatList } from '@/utils/text'
-import { courses } from './courses'
+import { programmes } from './programmes'
 
 /*
  * Homepage copy. Only statements that are confirmed for Omega are used here:
  *  - it is a purely offline (in-person) coaching institute; no online classes
- *  - it has Foundation, JEE and NEET course pages (from data/courses.ts)
+ *  - it teaches Classes 5 to 12, across the Pre-Foundation and Foundation
+ *    programmes (see data/programmes.ts)
  * Do not add claims about tests, doubt sessions, results, faculty, batch sizes
- * or facilities until the institute confirms them.
+ * or facilities beyond what data/academics.ts documents.
  */
 
-const courseNames = formatList(courses.map((course) => course.title))
+const programmeNames = formatList(programmes.map((programme) => programme.name))
 
 export const homeHero: HomeHero = {
   eyebrow: 'Omega Education Centre',
-  headline: `Offline classroom coaching for ${courseNames}`,
+  headline: 'Offline classroom coaching for Classes 5 to 12',
   description:
     'At Omega, students learn in person, in the classroom, face to face with their teachers.',
   // Enquiry has no form yet: /admission is a placeholder page for now.
@@ -46,8 +47,8 @@ export const homeIntro: HomeIntro = {
     },
     {
       id: 'programmes',
-      title: courseNames,
-      description: 'The programmes Omega offers. See the Courses page for details.',
+      title: programmeNames,
+      description: 'For Classes 5 to 12, in the CBSE, BSEB and NCERT curriculum. See the Courses page for details.',
     },
   ],
   cta: { label: 'About Omega', to: ROUTES.about },

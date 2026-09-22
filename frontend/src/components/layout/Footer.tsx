@@ -3,7 +3,7 @@ import { Logo } from '@/components/common/Logo'
 import { Container } from '@/components/ui/Container'
 import { courseRoute, ROUTES } from '@/config/routes'
 import { siteConfig } from '@/config/site'
-import { branches, contactInfo, courses, footerNav } from '@/data'
+import { branches, contactInfo, footerNav, programmes } from '@/data'
 import { cn } from '@/utils/cn'
 import { telHref, whatsappHref } from '@/utils/contact'
 import styles from './Footer.module.css'
@@ -70,9 +70,9 @@ export function Footer() {
           <nav aria-label="Courses">
             <h2 className={styles.title}>Courses</h2>
             <ul className={styles.list}>
-              {courses.map((course) => (
-                <li key={course.slug}>
-                  <Link to={courseRoute(course.slug)}>{course.title}</Link>
+              {programmes.map((programme) => (
+                <li key={programme.slug}>
+                  <Link to={courseRoute(programme.slug)}>{programme.name}</Link>
                 </li>
               ))}
               <li>

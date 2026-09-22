@@ -11,7 +11,7 @@ institutes' websites.
 | `faculty/`   | Faculty portraits                                                 |
 | `classroom/` | Photos of the offline classrooms, campus and events               |
 | `students/`  | Result / achiever photos (only with consent)                      |
-| `courses/`   | One image per course                                              |
+| `courses/`   | One image per programme (Pre-Foundation, Foundation)              |
 | `icons/`     | Small UI and feature icons (SVG)                                  |
 
 The `favicon` lives in `public/`, not here.
@@ -45,6 +45,9 @@ export const faculty: FacultyMember[] = [
 `homeHero.image` / `homeIntro.image` in `src/data/home.ts`. Until a real photo
 exists the site shows a labelled placeholder — never substitute stock or
 generated imagery and present it as Omega's own classrooms.
+
+**Programme photos:** save to `courses/` and set the `image` field on the
+matching entry in `src/data/programmes.ts`. Same placeholder rule applies.
 
 Empty folders are kept in Git with a `.gitkeep`; delete it once a folder has a
 real file.

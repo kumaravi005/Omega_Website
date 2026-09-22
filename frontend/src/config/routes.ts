@@ -3,7 +3,7 @@
  * so a path change happens in exactly one place.
  */
 
-import type { CourseSlug } from '@/types/content'
+import type { ProgrammeSlug } from '@/types/content'
 
 export const ROUTES = {
   home: '/',
@@ -17,7 +17,7 @@ export const ROUTES = {
   contact: '/contact',
 } as const
 
-/** Path of a single course page, e.g. courseRoute('jee') -> "/courses/jee". */
-export function courseRoute(slug: CourseSlug): string {
+/** Path of a single programme page, e.g. courseRoute('foundation') -> "/courses/foundation". */
+export function courseRoute(slug: ProgrammeSlug): string {
   return `${ROUTES.courses}/${slug}`
 }

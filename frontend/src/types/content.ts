@@ -7,18 +7,52 @@
 
 import type { ImageRef, IsoDate, NavItem } from './common'
 
-/** URL slugs of the courses that have their own page. Extend when a course page is added. */
-export type CourseSlug = 'foundation' | 'jee' | 'neet'
+/** URL slugs of the programmes that have their own page (/courses/:slug). */
+export type ProgrammeSlug = 'pre-foundation' | 'foundation'
 
-export interface Course {
-  slug: CourseSlug
+/** A named area of academic focus within a programme (e.g. "Concept Building"). */
+export interface ProgrammeFocusArea {
+  id: string
   title: string
-  summary?: string
-  /** Who the course is for (class / target exam), as confirmed by the institute. */
-  audience?: string
-  duration?: string
-  highlights?: string[]
+  description: string
+}
+
+/**
+ * One of Omega's classroom programmes. Content must trace back to the official
+ * prospectus or another institute-confirmed source — see src/data/programmes.ts.
+ */
+export interface Programme {
+  id: string
+  slug: ProgrammeSlug
+  name: string
+  /** e.g. "Classes 5 to 10". */
+  classRange: string
+  /** Board / curriculum alignment, e.g. ["CBSE", "BSEB", "NCERT-based learning"]. */
+  curriculum: string[]
+  /** One-line summary for cards (homepage, /courses listing). */
+  shortDescription: string
+  /** Longer overview paragraph for the programme detail page. */
+  description: string
+  focusAreas: ProgrammeFocusArea[]
+  /** School-level entrance/competitive examinations this programme prepares students for, if any. */
+  examinations?: string[]
+  cta: NavItem
   image?: ImageRef
+  highlights?: string[]
+}
+
+/** One item in the institute's academic system (lecture classes, doubt sessions, ...). */
+export interface AcademicSystemItem {
+  id: string
+  title: string
+  description: string
+}
+
+/** One category of test (minor, major, board-pattern). */
+export interface AssessmentType {
+  id: string
+  title: string
+  description: string
 }
 
 export interface FacultyMember {
@@ -82,6 +116,20 @@ export interface Branch {
   timings?: string
   mapUrl?: string
   image?: ImageRef
+}
+
+/**
+ * Coarse locality only — not a full postal address. Use this until the exact
+ * street address, landmark and PIN code are confirmed and a full `Branch` can
+ * be published instead. See src/data/location.ts.
+ */
+export interface LocalityInfo {
+  /** Village / area name. */
+  village: string
+  district: string
+  state: string
+  /** True while the exact spelling of `village` still needs confirmation. */
+  spellingUnconfirmed?: boolean
 }
 
 export interface ContactInfo {

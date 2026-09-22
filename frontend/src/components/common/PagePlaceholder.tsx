@@ -10,7 +10,7 @@ interface PagePlaceholderProps {
   title: string
   /** What the finished page is intended to contain. */
   plannedContent: string
-  /** Trail for nested pages (e.g. Home / Courses / JEE). */
+  /** Trail for nested pages (e.g. Home / Courses / Foundation). */
   breadcrumbs?: BreadcrumbItem[]
 }
 

@@ -190,6 +190,27 @@
   color: var(--color-error);
 }
 
+/*
+ * On dark bands, badge backgrounds (bg-muted, primary-tint, accent-tint) stay
+ * light while `.on-dark` swaps text to a light colour for the surrounding
+ * page — pairing the two would put light text on a light pill. Give badges a
+ * transparent, outlined treatment instead, using the same text colours
+ * already verified against the dark background elsewhere (see contrast
+ * check in styles/tokens.css comments: on-dark text and on-dark accent).
+ */
+.on-dark .badge {
+  background: transparent;
+  border-color: var(--color-on-dark-border);
+  color: var(--color-text-inverse);
+}
+
+.on-dark .badge--primary,
+.on-dark .badge--accent {
+  background: transparent;
+  border-color: var(--color-on-dark-accent);
+  color: var(--color-on-dark-accent);
+}
+
 /* ---------- Breadcrumb ---------- */
 
 .breadcrumb {
