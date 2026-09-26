@@ -21,6 +21,11 @@ export function ProgrammeCard({ programme, headingLevel: Heading = 'h3' }: Progr
       </Badge>
       <Heading className={Heading === 'h2' ? 'h3' : undefined}>{programme.name}</Heading>
       <p className="text-muted">{programme.shortDescription}</p>
+      <div className="cluster">
+        {programme.curriculum.map((item) => (
+          <Badge key={item}>{item}</Badge>
+        ))}
+      </div>
       <CtaGroup>
         <ButtonLink to={courseRoute(programme.slug)} variant="outline">
           Learn more

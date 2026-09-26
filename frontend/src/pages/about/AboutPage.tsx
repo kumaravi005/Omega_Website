@@ -3,11 +3,12 @@ import { PageMeta } from '@/components/common/PageMeta'
 import { Badge } from '@/components/ui/Badge'
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { CtaGroup } from '@/components/ui/CtaGroup'
+import { ImageFrame } from '@/components/ui/ImageFrame'
 import { InfoGrid } from '@/components/ui/InfoGrid'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ROUTES } from '@/config/routes'
-import { academicSystem, assessmentCycle, parentInteractionSummary, studyMaterial } from '@/data'
+import { academicSystem, assessmentCycle, assessments, parentInteractionSummary, studyMaterial } from '@/data'
 
 /**
  * About page: a concise, prospectus-grounded account of how Omega teaches.
@@ -24,23 +25,28 @@ export default function AboutPage() {
           title="About"
           description="Omega Education Centre is an offline classroom coaching institute for Classes 5 to 12, in the CBSE, BSEB and NCERT curriculum."
         />
-        <SectionHeading
-          as="h1"
-          headingId="about-heading"
-          eyebrow="About Omega Education Centre"
-          title="Classroom-focused learning, for Classes 5 to 12"
-        />
-        <div className="stack measure">
-          <p>
-            Omega Education Centre is an offline coaching institute. Every class is taught in
-            person, at the centre, with the teacher and the students in the same room — there
-            are no online classes.
-          </p>
-          <p>
-            Two classroom programmes are taught, in the CBSE, BSEB and NCERT curriculum:
-            Pre-Foundation for Classes 5 to 10, and Foundation for Classes 11 and 12. See the{' '}
-            <Link to={ROUTES.courses}>Courses page</Link> for details on each.
-          </p>
+        <div className="split">
+          <div>
+            <SectionHeading
+              as="h1"
+              headingId="about-heading"
+              eyebrow="About Omega Education Centre"
+              title="Classroom-focused learning, for Classes 5 to 12"
+            />
+            <div className="stack">
+              <p>
+                Omega Education Centre is an offline coaching institute. Every class is taught in
+                person, at the centre, with the teacher and the students in the same room — there
+                are no online classes.
+              </p>
+              <p>
+                Two classroom programmes are taught, in the CBSE, BSEB and NCERT curriculum:
+                Pre-Foundation for Classes 5 to 10, and Foundation for Classes 11 and 12. See the{' '}
+                <Link to={ROUTES.courses}>Courses page</Link> for details on each.
+              </p>
+            </div>
+          </div>
+          <ImageFrame placeholderLabel="Photograph of the centre to be added" ratio="4/3" />
         </div>
       </Section>
 
@@ -56,11 +62,7 @@ export default function AboutPage() {
           title="Minor, major and board-pattern tests"
           description={assessmentCycle.join(' → ')}
         />
-        <p className="lead measure">
-          Students are assessed through minor tests on topics currently being taught, major
-          tests after a larger portion of the syllabus, and board-pattern tests designed
-          around the board examination pattern.
-        </p>
+        <InfoGrid items={assessments} columns={3} />
       </Section>
 
       <Section tone="muted" tight labelledBy="material-heading">

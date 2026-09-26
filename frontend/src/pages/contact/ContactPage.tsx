@@ -1,5 +1,6 @@
 import { EnquiryOptions } from '@/components/common/EnquiryOptions'
 import { PageMeta } from '@/components/common/PageMeta'
+import { ImageFrame } from '@/components/ui/ImageFrame'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { siteConfig } from '@/config/site'
@@ -30,19 +31,22 @@ export default function ContactPage() {
           description="Reach us by whichever way suits you — call, WhatsApp, send an enquiry, or visit the centre."
         />
 
-        <div className="stack">
-          <h2 className="h4">{siteConfig.name}</h2>
-          {branch && <address>{formatAddress(branch.address)}</address>}
-          {phones.map((phone) => (
-            <p key={phone}>
-              <a href={telHref(phone)}>{phone}</a>
-            </p>
-          ))}
-          {email && (
-            <p>
-              <a href={`mailto:${email}`}>{email}</a>
-            </p>
-          )}
+        <div className="split">
+          <div className="stack">
+            <h2 className="h4">{siteConfig.name}</h2>
+            {branch && <address>{formatAddress(branch.address)}</address>}
+            {phones.map((phone) => (
+              <p key={phone}>
+                <a href={telHref(phone)}>{phone}</a>
+              </p>
+            ))}
+            {email && (
+              <p>
+                <a href={`mailto:${email}`}>{email}</a>
+              </p>
+            )}
+          </div>
+          <ImageFrame placeholderLabel="Photograph of the centre to be added" ratio="4/3" />
         </div>
       </Section>
 

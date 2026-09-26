@@ -1,12 +1,18 @@
-import { SectionPlaceholder } from '@/components/common/SectionPlaceholder'
+import { EnquiryOptions } from '@/components/common/EnquiryOptions'
+import { Section } from '@/components/ui/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 
-/** Planned: admission / contact call to action linking to /admission and /contact. */
+/** Closing homepage call to action: every offline enquiry path, in one place. */
 export function CtaSection() {
   return (
-    <SectionPlaceholder
-      id="admission-cta"
-      title="Admissions and contact"
-      plannedContent="A closing call to action for admission enquiries and visiting the centre."
-    />
+    <Section id="admission-cta" tone="dark" labelledBy="cta-heading">
+      <SectionHeading
+        headingId="cta-heading"
+        eyebrow="Admissions"
+        title="Ready to enquire?"
+        description="Get in touch about admission for Pre-Foundation or Foundation — call, WhatsApp, send an enquiry, or visit the centre."
+      />
+      <EnquiryOptions />
+    </Section>
   )
 }

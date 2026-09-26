@@ -3,7 +3,7 @@
  *
  *   .section-heading   eyebrow + heading + description
  *   .cta-group         row of call-to-action buttons
- *   .card              bordered surface (+ --interactive, --flush)
+ *   .card              bordered surface (+ --interactive, --flush, __body)
  *   .media             fixed-ratio image container with placeholder
  *   .badge             small status / category pill
  *   .breadcrumb        trail of ancestor pages
@@ -70,6 +70,15 @@
 .card--flush {
   padding: 0;
   overflow: hidden;
+}
+
+/* Padding wrapper for the text below a flush card's edge-to-edge media. */
+.card__body {
+  padding: var(--space-6);
+}
+
+.card__body > :last-child {
+  margin-bottom: 0;
 }
 
 /* For cards that contain a link (whole card reacts to hover / keyboard focus). */

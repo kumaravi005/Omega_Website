@@ -49,17 +49,21 @@ Any new feature should be checked against this list before it is added.
 
 | Route                      | Purpose                                        | Status  |
 | --------------------------- | ----------------------------------------------- | ------- |
-| `/`                         | Homepage                                        | Sections stubbed |
+| `/`                         | Homepage                                        | **Built** |
 | `/about`                    | About the institute                             | **Built** |
 | `/courses`                  | All programmes overview                        | **Built** |
 | `/courses/pre-foundation`   | Pre-Foundation programme (Classes 5–10)         | **Built** |
 | `/courses/foundation`       | Foundation programme (Classes 11–12)            | **Built** |
-| `/results`                  | Student results and achievements                | Placeholder |
-| `/faculty`                  | Faculty profiles                                | Placeholder |
-| `/scholarship`              | Scholarship / O-SAT                             | Placeholder |
+| `/results`                  | Student results and achievements                | Structured empty state |
+| `/faculty`                  | Faculty profiles                                | Structured empty state |
+| `/scholarship`              | Scholarship / O-SAT                             | Structured empty state |
 | `/admission`                | Admission enquiry (call, WhatsApp, form, visit)  | **Built** |
-| `/news`                     | Notices, news and events                        | Placeholder |
+| `/news`                     | Notices, news and events                        | Structured empty state |
 | `/contact`                  | Contact details, location and enquiry           | **Built** |
+
+"Structured empty state" means the page is fully designed and will render real
+data automatically the moment it is added to the matching file in
+`frontend/src/data/` — nothing else needs to change.
 
 Unknown URLs, including old `/courses/jee` and `/courses/neet` links, show a
 404 page.
@@ -73,16 +77,18 @@ In display order (`frontend/src/sections/home/`):
 3. Institute introduction *(built)*
 4. Programmes *(built)*
 5. Why choose Omega *(built)*
-6. Faculty
-7. Results / achievements
+6. Faculty — links to `/faculty`
+7. Results / achievements — links to `/results`
 8. Student / parent testimonials
-9. Scholarship / O-SAT
+9. Scholarship / O-SAT — links to `/scholarship`
 10. Offline classroom / institute experience
-11. News / notices
-12. Contact / admission call to action
+11. News / notices — links to `/news`
+12. Contact / admission call to action *(built)*
 13. Footer *(built)*
 
-Sections 6–12 are still labelled shells with no real content.
+Sections 6–11 (other than their own dedicated pages) are labelled shells with
+no real content, since no testimonial, classroom-gallery or faculty/results
+data has been confirmed yet.
 
 ## Development roadmap
 
@@ -93,26 +99,30 @@ Sections 6–12 are still labelled shells with no real content.
 | 3   | Homepage hero and institute introduction                                                    | **Done**    |
 | 4   | Programme architecture (frontend/backend split), prospectus-based programme content and pages | **Done**    |
 | 5   | Contact/location data, enquiry options, Contact/Admission/About pages, Why Choose Omega, SEO and accessibility polish | **Done**    |
-| 6   | Remaining homepage sections: faculty, results, testimonials, scholarship, classroom, news, closing CTA | Not started |
-| 7   | Inner pages: results, faculty, scholarship, news                                            | Not started |
+| 6   | UI refinement and page completion: richer About/Courses/Admission/Contact, structured empty states for Results/Faculty/Scholarship/News, completed homepage CTA | **Done** |
+| 7   | Real content: faculty, results, testimonials, scholarship details, news, classroom gallery — pending institute-supplied facts and assets | Not started |
 | 8   | Polish and launch: performance, deployment, real backend for the enquiry form               | Not started |
 
-The grouping of sets 6–8 is a proposal and can change.
+The grouping of sets 7–8 is a proposal and can change.
 
 ## Current project status
 
-**Sets 1–5 are complete.** The app builds and runs, every route resolves, and
+**Sets 1–6 are complete.** The app builds and runs, every route resolves, and
 the global shell (header, footer, mobile menu, design system and shared UI
-components) is production-quality. The homepage hero, introduction, programmes
-and "Why choose Omega" sections are built; both programme detail pages
-(`/courses/pre-foundation`, `/courses/foundation`), the About page and the
-Contact/Admission pages are fully built from the official prospectus and
-confirmed institute facts. Contact details (phone, WhatsApp, email, centre
-location) are confirmed and live in `frontend/src/data/contact.ts` and
-`frontend/src/data/branches.ts`. The remaining homepage sections are labelled
-shells and the other inner pages (`/results`, `/faculty`, `/scholarship`,
-`/news`) are "coming soon" placeholders — their data files are empty by design,
-awaiting real content.
+components) is production-quality. The homepage, About, Courses overview, both
+programme detail pages (`/courses/pre-foundation`, `/courses/foundation`),
+Contact and Admission are fully designed and built from the official
+prospectus and confirmed institute facts. Contact details (phone, WhatsApp,
+email, centre location) are confirmed and live in `frontend/src/data/contact.ts`
+and `frontend/src/data/branches.ts`.
+
+`/results`, `/faculty`, `/scholarship` and `/news` are not placeholders in the
+old sense — each is a fully designed page with real rendering logic for actual
+data (result cards, faculty cards, scholarship slabs, a news list) and a
+polished "not published yet" empty state for now, since their data files
+(`frontend/src/data/{results,faculty,scholarship,news}.ts`) are still empty.
+Adding real, confirmed content to those files is enough to make the pages show
+it — no further code changes are needed.
 
 Open decisions:
 
@@ -122,3 +132,7 @@ Open decisions:
 - A real backend for the admission enquiry form — it currently routes to a
   page offering call, WhatsApp, visit-centre and a placeholder form link, with
   no server behind any of them yet.
+- Real institute assets (logo, classroom/centre photographs, faculty
+  photographs, verified results) — see `frontend/src/assets/README.md`. Every
+  photo slot on the site currently shows a clearly labelled placeholder rather
+  than a substitute image.

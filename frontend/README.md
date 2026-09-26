@@ -47,7 +47,7 @@ src/
   components/
     layout/               Global Header and Footer
     ui/                    Design-system components (see "UI components")
-    common/                Logo, PageMeta, ProgrammeCard, EnquiryOptions, page/section placeholders
+    common/                Logo, PageMeta, ProgrammeCard, EnquiryOptions, EmptyState, ResultCard, FacultyCard, SectionPlaceholder
   data/                   Static content (programmes, academics, faculty, results, news ...)
   types/                  TypeScript models for the content and UI
   hooks/                  Reusable React hooks
@@ -143,7 +143,8 @@ semantic roles that components use (`--color-primary`, `--color-accent`,
 
 `src/components/layout/` holds the global `Header` and `Footer`;
 `src/components/common/` holds `Logo`, `PageMeta`, `ProgrammeCard`,
-`EnquiryOptions` and the placeholders.
+`EnquiryOptions`, `EmptyState`, `ResultCard`, `FacultyCard` and
+`SectionPlaceholder` (for homepage sections with no data yet).
 
 ### Header and footer
 
@@ -191,6 +192,19 @@ prepares for) lives on each `Programme` record.
 Omega is **not** presented as directly providing JEE/NEET coaching anywhere
 on the site; the Foundation programme is described only as a foundation for
 future competitive examinations, in line with the institute's positioning.
+
+### Structured empty states
+
+`/results`, `/faculty`, `/scholarship` and `/news` each have real rendering
+logic for actual data — a card grid (`ResultCard`, `FacultyCard`), scholarship
+slabs via `InfoGrid`, or a sorted notice list — that only appears once
+`src/data/{results,faculty,scholarship,news}.ts` holds real entries. Until
+then, each page shows the shared `EmptyState` component: an `ImageFrame`
+placeholder plus an honest one-line message, in the same visual language as
+every other photo slot on the site. Adding confirmed data to the matching
+file is enough to make a page show it; no other code changes are needed.
+`EmptyState` is not for placeholder facts — it never claims something exists
+that doesn't.
 
 ### Assets
 
