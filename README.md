@@ -50,16 +50,16 @@ Any new feature should be checked against this list before it is added.
 | Route                      | Purpose                                        | Status  |
 | --------------------------- | ----------------------------------------------- | ------- |
 | `/`                         | Homepage                                        | Sections stubbed |
-| `/about`                    | About the institute                             | Placeholder |
+| `/about`                    | About the institute                             | **Built** |
 | `/courses`                  | All programmes overview                        | **Built** |
 | `/courses/pre-foundation`   | Pre-Foundation programme (Classes 5–10)         | **Built** |
 | `/courses/foundation`       | Foundation programme (Classes 11–12)            | **Built** |
 | `/results`                  | Student results and achievements                | Placeholder |
 | `/faculty`                  | Faculty profiles                                | Placeholder |
 | `/scholarship`              | Scholarship / O-SAT                             | Placeholder |
-| `/admission`                | Admission process and enquiry                   | Placeholder |
+| `/admission`                | Admission enquiry (call, WhatsApp, form, visit)  | **Built** |
 | `/news`                     | Notices, news and events                        | Placeholder |
-| `/contact`                  | Contact details, location and map               | Placeholder |
+| `/contact`                  | Contact details, location and enquiry           | **Built** |
 
 Unknown URLs, including old `/courses/jee` and `/courses/neet` links, show a
 404 page.
@@ -72,7 +72,7 @@ In display order (`frontend/src/sections/home/`):
 2. Hero *(built)*
 3. Institute introduction *(built)*
 4. Programmes *(built)*
-5. Why choose Omega
+5. Why choose Omega *(built)*
 6. Faculty
 7. Results / achievements
 8. Student / parent testimonials
@@ -82,7 +82,7 @@ In display order (`frontend/src/sections/home/`):
 12. Contact / admission call to action
 13. Footer *(built)*
 
-Sections 5–12 are still labelled shells with no real content.
+Sections 6–12 are still labelled shells with no real content.
 
 ## Development roadmap
 
@@ -92,32 +92,33 @@ Sections 5–12 are still labelled shells with no real content.
 | 2   | Brand identity and global design system: tokens, layout, shared UI, header, footer          | **Done**    |
 | 3   | Homepage hero and institute introduction                                                    | **Done**    |
 | 4   | Programme architecture (frontend/backend split), prospectus-based programme content and pages | **Done**    |
-| 5   | Remaining homepage sections: why Omega, faculty, results, testimonials, scholarship, classroom, news, closing CTA | Not started |
-| 6   | Inner pages: about, results, faculty                                                        | Not started |
-| 7   | Inner pages: scholarship, admission enquiry, news, contact                                  | Not started |
-| 8   | Polish and launch: SEO, accessibility audit, performance, deployment                         | Not started |
+| 5   | Contact/location data, enquiry options, Contact/Admission/About pages, Why Choose Omega, SEO and accessibility polish | **Done**    |
+| 6   | Remaining homepage sections: faculty, results, testimonials, scholarship, classroom, news, closing CTA | Not started |
+| 7   | Inner pages: results, faculty, scholarship, news                                            | Not started |
+| 8   | Polish and launch: performance, deployment, real backend for the enquiry form               | Not started |
 
-The grouping of sets 5–8 is a proposal and can change.
+The grouping of sets 6–8 is a proposal and can change.
 
 ## Current project status
 
-**Sets 1–4 are complete.** The app builds and runs, every route resolves, and
+**Sets 1–5 are complete.** The app builds and runs, every route resolves, and
 the global shell (header, footer, mobile menu, design system and shared UI
-components) is production-quality. The homepage hero, introduction and
-programmes section are built, and both programme detail pages
-(`/courses/pre-foundation`, `/courses/foundation`) are fully built from the
-official prospectus. The remaining homepage sections are labelled shells and
-the other inner pages are "coming soon" placeholders. The institute-fact data
-files that still need real content (faculty, results, testimonials, news,
-branches, scholarship, full contact details) are empty by design.
+components) is production-quality. The homepage hero, introduction, programmes
+and "Why choose Omega" sections are built; both programme detail pages
+(`/courses/pre-foundation`, `/courses/foundation`), the About page and the
+Contact/Admission pages are fully built from the official prospectus and
+confirmed institute facts. Contact details (phone, WhatsApp, email, centre
+location) are confirmed and live in `frontend/src/data/contact.ts` and
+`frontend/src/data/branches.ts`. The remaining homepage sections are labelled
+shells and the other inner pages (`/results`, `/faculty`, `/scholarship`,
+`/news`) are "coming soon" placeholders — their data files are empty by design,
+awaiting real content.
 
 Open decisions:
 
 - Final logo and brand colours (currently provisional).
 - Whether static hosting of a client-rendered site is acceptable for search
   visibility, or pages should be pre-rendered.
-- How admission enquiries should be received — the UI supports an enquiry
-  form, phone call, WhatsApp and an in-person visit, but there is no backend
-  yet, and the phone number, email and full postal address found in the
-  prospectus have not been published pending the institute's confirmation
-  (see `frontend/src/data/contact.ts` and `frontend/src/data/location.ts`).
+- A real backend for the admission enquiry form — it currently routes to a
+  page offering call, WhatsApp, visit-centre and a placeholder form link, with
+  no server behind any of them yet.

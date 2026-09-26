@@ -118,20 +118,6 @@ export interface Branch {
   image?: ImageRef
 }
 
-/**
- * Coarse locality only — not a full postal address. Use this until the exact
- * street address, landmark and PIN code are confirmed and a full `Branch` can
- * be published instead. See src/data/location.ts.
- */
-export interface LocalityInfo {
-  /** Village / area name. */
-  village: string
-  district: string
-  state: string
-  /** True while the exact spelling of `village` still needs confirmation. */
-  spellingUnconfirmed?: boolean
-}
-
 export interface ContactInfo {
   phones: string[]
   whatsapp?: string

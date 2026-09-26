@@ -152,11 +152,24 @@ semantic roles that components use (`--color-primary`, `--color-accent`,
   route change (including browser back) and <kbd>Esc</kbd>. The active page is
   marked with `aria-current`, plus a visible marker.
 - **Footer:** institute info, "Explore" links, course links (from
-  `data/programmes.ts`), and a contact column (branches, phones, WhatsApp, email,
-  hours) plus social links, all read from `src/data`. Until the institute
-  supplies real details the contact column shows a "coming soon" note and the
-  social row is hidden.
+  `data/programmes.ts`), and a contact column — confirmed centre location
+  (`data/branches.ts`), phone, WhatsApp and email (`data/contact.ts`) — plus
+  social links, all read from `src/data`. If any of these were ever emptied
+  again, the contact column would fall back to a "coming soon" note and the
+  social row would hide itself.
 - Both are rendered once by `layouts/RootLayout.tsx`; pages never include them.
+
+### Contact and admission
+
+Confirmed contact facts (phone, WhatsApp, email in `data/contact.ts`; centre
+location in `data/branches.ts`) drive the `EnquiryOptions` component
+(`components/common/EnquiryOptions.tsx`), used on `/contact` and `/admission`.
+It renders up to four independent actions — Enquiry Form, Call, WhatsApp,
+Visit Centre — each appearing only once its underlying data is present, so a
+visitor is never forced down one particular route. "Visit Centre" links to a
+Google Maps text search built from the confirmed address (`mapsSearchUrl` in
+`utils/contact.ts`), not a fixed pin. No backend form exists yet; "Enquiry
+Form" is a page, not a submission.
 
 ### Programmes (courses)
 

@@ -1,4 +1,5 @@
-.visit {
+.address {
   margin-top: var(--space-4);
   margin-bottom: 0;
+  color: var(--color-text-muted);
 }

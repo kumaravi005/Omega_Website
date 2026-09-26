@@ -17,7 +17,7 @@ import {
 export default function HomePage() {
   return (
     <>
-      <PageMeta />
+      <PageMeta description="Omega Education Centre is an offline classroom coaching institute for Classes 5 to 12 — Pre-Foundation (Classes 5–10) and Foundation (Classes 11–12), in the CBSE, BSEB and NCERT curriculum." />
       <HeroSection />
       <IntroSection />
       <CoursesSection />

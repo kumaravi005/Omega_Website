@@ -25,7 +25,8 @@ export const router = createBrowserRouter([
       { index: true, Component: HomePage },
       { path: 'about', Component: AboutPage },
       { path: 'courses', Component: CoursesPage },
-      // Serves /courses/foundation, /courses/jee and /courses/neet
+      // Serves /courses/pre-foundation and /courses/foundation; any other
+      // slug (including the retired /courses/jee, /courses/neet) 404s.
       { path: 'courses/:courseSlug', Component: CourseDetailPage },
       { path: 'results', Component: ResultsPage },
       { path: 'faculty', Component: FacultyPage },
