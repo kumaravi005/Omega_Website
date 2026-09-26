@@ -6,24 +6,38 @@ import { branches, contactInfo } from '@/data'
 import { formatAddress, telHref, whatsappHref } from '@/utils/contact'
 import styles from './EnquiryOptions.module.css'
 
+interface EnquiryOptionsProps {
+  /**
+   * Where the "Enquiry Form" button goes. Defaults to the /admission page.
+   * On that page itself, pass an in-page anchor (e.g. "#enquiry-form") so it
+   * jumps to the real form instead of linking to the page it's already on.
+   */
+  formHref?: string
+}
+
 /**
  * Four independent offline admission-enquiry paths — a visitor picks whichever
  * suits them, none is forced. Call, WhatsApp and Visit Centre only appear once
- * a number / centre is confirmed in data/contact.ts and data/branches.ts; the
- * enquiry form link is always shown. No backend form is built yet — "Enquiry
- * Form" routes to the /admission page.
+ * a number / centre is confirmed in data/contact.ts and data/branches.ts.
  */
-export function EnquiryOptions() {
+export function EnquiryOptions({ formHref = ROUTES.admission }: EnquiryOptionsProps) {
   const { phones, whatsapp } = contactInfo
   const phone = phones[0]
   const branch = branches[0]
+  const isAnchor = formHref.startsWith('#')
 
   return (
     <div>
       <CtaGroup>
-        <ButtonLink to={ROUTES.admission} variant="accent" size="lg">
-          Enquiry Form
-        </ButtonLink>
+        {isAnchor ? (
+          <AnchorButton href={formHref} variant="accent" size="lg">
+            Enquiry Form
+          </AnchorButton>
+        ) : (
+          <ButtonLink to={formHref} variant="accent" size="lg">
+            Enquiry Form
+          </ButtonLink>
+        )}
         {phone && (
           <AnchorButton href={telHref(phone)} variant="outline" size="lg">
             Call {phone}

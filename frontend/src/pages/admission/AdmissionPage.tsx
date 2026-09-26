@@ -1,3 +1,4 @@
+import { AdmissionEnquiryForm } from '@/components/common/AdmissionEnquiryForm'
 import { EnquiryOptions } from '@/components/common/EnquiryOptions'
 import { PageMeta } from '@/components/common/PageMeta'
 import { ProgrammeCard } from '@/components/common/ProgrammeCard'
@@ -6,11 +7,12 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { programmes } from '@/data'
 
 /**
- * Admission enquiry landing page. There is no backend form yet, so this page
- * leads with every other offline enquiry path instead of a dead end (see
- * EnquiryOptions), then reminds a visitor which programme applies to them.
- * No admission dates, fees, seat availability or procedure steps are shown —
- * none of that is confirmed.
+ * Admission enquiry landing page: every offline enquiry path up top (see
+ * EnquiryOptions), a real enquiry form, and a reminder of which programme
+ * applies to a visitor before they get in touch. No admission dates, fees,
+ * seat availability, procedure steps or response-time promises are shown —
+ * none of that is confirmed. The form has no permanent storage or email
+ * notification behind it yet — see backend/README.md.
  */
 export default function AdmissionPage() {
   return (
@@ -27,7 +29,17 @@ export default function AdmissionPage() {
           title="Admission enquiry"
           description="Get in touch about admission for Pre-Foundation or Foundation, by whichever method suits you — nobody is asked to pick just one."
         />
-        <EnquiryOptions />
+        <EnquiryOptions formHref="#enquiry-form" />
+      </Section>
+
+      <Section id="enquiry-form" width="narrow" labelledBy="enquiry-form-heading">
+        <SectionHeading
+          headingId="enquiry-form-heading"
+          eyebrow="Enquiry form"
+          title="Send us an enquiry"
+          description="Share a few details below. This isn't the only way to reach us — call, WhatsApp or visit the centre if you'd rather."
+        />
+        <AdmissionEnquiryForm />
       </Section>
 
       <Section tone="muted" labelledBy="which-programme-heading">

@@ -1,0 +1,22 @@
+{
+  "name": "omega-education-centre-backend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Admission enquiry API for the Omega Education Centre website.",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.ts",
+    "start": "node src/index.ts",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.3",
+    "typescript": "~6.0.2"
+  }
+}

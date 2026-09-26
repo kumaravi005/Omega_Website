@@ -47,14 +47,24 @@ src/
   components/
     layout/               Global Header and Footer
     ui/                    Design-system components (see "UI components")
-    common/                Logo, PageMeta, ProgrammeCard, EnquiryOptions, EmptyState, ResultCard, FacultyCard, SectionPlaceholder
+    common/                Logo, PageMeta, ProgrammeCard, EnquiryOptions, AdmissionEnquiryForm, EmptyState, ResultCard, FacultyCard, SectionPlaceholder
+  config/                 api.ts — backend API base URL (VITE_API_URL)
   data/                   Static content (programmes, academics, faculty, results, news ...)
   types/                  TypeScript models for the content and UI
   hooks/                  Reusable React hooks
-  utils/                  Pure helpers (class names, tel/WhatsApp links, list formatting)
+  utils/                  Pure helpers (class names, tel/WhatsApp links, list formatting, enquiry validation/submission)
   assets/                 Images and icons (see src/assets/README.md)
-  styles/                 Design tokens, global CSS, layout and patterns
+  styles/                 Design tokens, global CSS, layout and patterns (including forms.css)
 ```
+
+### Environment variables
+
+Copy `.env.example` to `.env` for local development (never commit the real
+`.env`):
+
+| Variable       | Purpose                                                        |
+| -------------- | --------------------------------------------------------------- |
+| `VITE_API_URL` | Base URL of the backend API (see `../backend`). Defaults to `http://localhost:4000` if unset. |
 
 ### Conventions
 
@@ -143,8 +153,9 @@ semantic roles that components use (`--color-primary`, `--color-accent`,
 
 `src/components/layout/` holds the global `Header` and `Footer`;
 `src/components/common/` holds `Logo`, `PageMeta`, `ProgrammeCard`,
-`EnquiryOptions`, `EmptyState`, `ResultCard`, `FacultyCard` and
-`SectionPlaceholder` (for homepage sections with no data yet).
+`EnquiryOptions`, `AdmissionEnquiryForm`, `EmptyState`, `ResultCard`,
+`FacultyCard` and `SectionPlaceholder` (for homepage sections with no data
+yet).
 
 ### Header and footer
 
@@ -169,8 +180,21 @@ It renders up to four independent actions — Enquiry Form, Call, WhatsApp,
 Visit Centre — each appearing only once its underlying data is present, so a
 visitor is never forced down one particular route. "Visit Centre" links to a
 Google Maps text search built from the confirmed address (`mapsSearchUrl` in
-`utils/contact.ts`), not a fixed pin. No backend form exists yet; "Enquiry
-Form" is a page, not a submission.
+`utils/contact.ts`), not a fixed pin. On `/admission` itself, "Enquiry Form"
+jumps to the real form on that page (`components/common/AdmissionEnquiryForm.tsx`)
+instead of linking away.
+
+`AdmissionEnquiryForm` submits to the backend API (see `../backend/README.md`)
+via `submitEnquiry()` in `utils/enquiry.ts`, using `config/api.ts`
+(`VITE_API_URL`, see `.env.example`) as the base URL. Validation rules
+(required fields, phone format, length limits) live in `utils/enquiry.ts` and
+intentionally mirror the backend's own validation in
+`backend/src/validation/enquiry.ts` — the client-side copy exists only to give
+immediate feedback; the backend never trusts it. There is no permanent storage
+or email notification behind the endpoint yet, so a successful submission
+means the server received and validated the enquiry, not that anyone has
+replied — the success message says exactly that and repeats the direct
+contact options alongside it.
 
 ### Programmes (courses)
 

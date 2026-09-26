@@ -1,0 +1,136 @@
+/*
+ * Form conventions: one consistent look for every form on the site.
+ *
+ *   .field           label + control + error, stacked
+ *   .label           field label (+ .required marker)
+ *   .hint            small helper text below a label
+ *   .input/.select/.textarea   text controls
+ *   .fieldset/.legend/.radio-group/.radio-option   radio/checkbox groups
+ *   .field-error     inline validation message
+ *   .form-status     success / error submission banner (+ --success, --error)
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--font-size-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.required {
+  color: var(--color-accent-text);
+  margin-left: var(--space-1);
+}
+
+.hint {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-body);
+  transition: var(--transition-colors);
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--color-primary);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input[aria-invalid='true'],
+.select[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.field-error {
+  font-size: var(--font-size-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-error);
+}
+
+/* ---------- Radio / checkbox groups ---------- */
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  font-size: var(--font-size-body);
+}
+
+.radio-option input {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: var(--color-primary);
+}
+
+/* ---------- Submission status ---------- */
+
+.form-status {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid currentColor;
+}
+
+.form-status > :last-child {
+  margin-bottom: 0;
+}
+
+.form-status--success {
+  background: var(--color-success-tint);
+  color: var(--color-success);
+}
+
+.form-status--error {
+  background: var(--color-error-tint);
+  color: var(--color-error);
+}

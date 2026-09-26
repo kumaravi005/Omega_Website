@@ -6,7 +6,7 @@ The official website of **Omega Education Centre**, an offline coaching institut
 
 ```text
 frontend/   The website (React + TypeScript). See frontend/README.md.
-backend/    Placeholder for a future backend service. See backend/README.md.
+backend/    Admission enquiry API (Express + TypeScript). See backend/README.md.
 ```
 
 ## Project purpose
@@ -100,14 +100,15 @@ data has been confirmed yet.
 | 4   | Programme architecture (frontend/backend split), prospectus-based programme content and pages | **Done**    |
 | 5   | Contact/location data, enquiry options, Contact/Admission/About pages, Why Choose Omega, SEO and accessibility polish | **Done**    |
 | 6   | UI refinement and page completion: richer About/Courses/Admission/Contact, structured empty states for Results/Faculty/Scholarship/News, completed homepage CTA | **Done** |
-| 7   | Real content: faculty, results, testimonials, scholarship details, news, classroom gallery — pending institute-supplied facts and assets | Not started |
-| 8   | Polish and launch: performance, deployment, real backend for the enquiry form               | Not started |
+| 7   | Real admission enquiry system: working enquiry form, Express backend API, server-side validation, rate limiting | **Done** |
+| 8   | Real content: faculty, results, testimonials, scholarship details, news, classroom gallery — pending institute-supplied facts and assets | Not started |
+| 9   | Polish and launch: performance, deployment, and a decision on permanent storage / email notification for enquiries | Not started |
 
 The grouping of sets 7–8 is a proposal and can change.
 
 ## Current project status
 
-**Sets 1–6 are complete.** The app builds and runs, every route resolves, and
+**Sets 1–7 are complete.** The app builds and runs, every route resolves, and
 the global shell (header, footer, mobile menu, design system and shared UI
 components) is production-quality. The homepage, About, Courses overview, both
 programme detail pages (`/courses/pre-foundation`, `/courses/foundation`),
@@ -124,14 +125,23 @@ polished "not published yet" empty state for now, since their data files
 Adding real, confirmed content to those files is enough to make the pages show
 it — no further code changes are needed.
 
+The admission enquiry form (`/admission`) now submits to a real backend API
+(`backend/`) with full server-side validation and rate limiting — see
+[backend/README.md](backend/README.md). It does **not** yet have permanent
+storage, email notification, or CAPTCHA; a successful submission is
+validated and logged server-side, not durably saved or forwarded to anyone.
+Call, WhatsApp and Visit Centre continue to work exactly as before (no
+server involved).
+
 Open decisions:
 
 - Final logo and brand colours (currently provisional).
 - Whether static hosting of a client-rendered site is acceptable for search
   visibility, or pages should be pre-rendered.
-- A real backend for the admission enquiry form — it currently routes to a
-  page offering call, WhatsApp, visit-centre and a placeholder form link, with
-  no server behind any of them yet.
+- Permanent storage for admission enquiries (a database needs to be chosen),
+  email notification to the institute (a provider needs to be chosen), and
+  whether CAPTCHA/abuse protection beyond per-IP rate limiting is needed —
+  see [backend/README.md](backend/README.md).
 - Real institute assets (logo, classroom/centre photographs, faculty
   photographs, verified results) — see `frontend/src/assets/README.md`. Every
   photo slot on the site currently shows a clearly labelled placeholder rather
